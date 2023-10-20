@@ -30,3 +30,31 @@ const account4 = {
 };
 
 const accounts = [account1, account2, account3, account4];
+
+// Elements
+const select = (selector) => document.querySelector(selector);
+
+const labelWelcome = select('.welcome');
+const labelDate = select('.date');
+const labelBalance = select('.balance__value');
+const labelSumIn = select('.summary__value--in');
+const labelSumOut = select('.summary__value--out');
+const labelSumInterest = select('.summary__value--interest');
+const labelTimer = select('.timer');
+
+const containerApp = select('.app');
+const containerMovements = select('.movements');
+
+const btnLogin = select('.login__btn');
+const btnTransfer = select('.form__btn--transfer');
+const btnLoan = select('.form__btn--loan');
+const btnClose = select('.form__btn--close');
+const btnSort = select('.btn--sort');
+
+const inputLoginUsername = select('.login__input--user');
+const inputLoginPin = select('.login__input--pin');
+const inputTransferTo = select('.form__input--to');
+const inputTransferAmount = select('.form__input--amount');
+const inputLoanAmount = select('.form__input--loan-amount');
+const inputCloseUsername = select('.form__input--user');
+const inputClosePin = select('.form__input--pin');
