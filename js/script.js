@@ -127,3 +127,16 @@ const createUserNames = (accts) => {
   });
 };
 createUserNames(accounts);
+
+// Create login functionality
+let currentAccount;
+
+btnLogin.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  currentAccount = accounts.find(
+    (acct) =>
+      acct.username === inputLoginUsername.value &&
+      acct.pin === Number(inputLoginPin.value)
+  );
+});
