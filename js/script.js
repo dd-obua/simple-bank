@@ -119,6 +119,7 @@ const displaySummary = () => {
 };
 displaySummary();
 
+// Create usernames
 const createUserNames = (accts) => {
   accts.forEach((acct) => {
     acct.username = acct.owner
