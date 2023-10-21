@@ -141,8 +141,8 @@ btnLogin.addEventListener('click', (event) => {
       acct.pin === Number(inputLoginPin.value)
   );
 
-  inputLoginUsername.value = '';
-  inputLoginPin.value = '';
+  // Clear input fields
+  inputLoginUsername.value = inputLoginPin.value = '';
   inputLoginPin.blur();
 
   if (!currentAccount) return;
