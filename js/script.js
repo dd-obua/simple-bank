@@ -131,7 +131,11 @@ const createUserNames = (accts) => {
 createUserNames(accounts);
 
 // Update UI
-const updateUI = (acct) => {};
+const updateUI = (acct) => {
+  displayMovements(currentAccount);
+  displayBalance(currentAccount);
+  displaySummary(currentAccount); // income, debts and interest
+};
 
 // Create login functionality
 let currentAccount;
@@ -160,12 +164,6 @@ btnLogin.addEventListener('click', (event) => {
   // Display main page
   containerApp.style.opacity = 1;
 
-  // Display, movements
-  displayMovements(currentAccount);
-
-  // Display balance
-  displayBalance(currentAccount);
-
-  // Display summary (income, debts and interest)
-  displaySummary(currentAccount);
+  // Update UI
+  updateUI();
 });
