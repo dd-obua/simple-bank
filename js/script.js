@@ -2,21 +2,21 @@
 
 // Data
 const account1 = {
-  owner: 'Denis Obote',
+  owner: 'Joseph Arwata',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 };
 
 const account2 = {
-  owner: 'Brian Lutalo',
+  owner: 'Stella Akello',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
 };
 
 const account3 = {
-  owner: 'Steven Smith Nokrach',
+  owner: 'Denis Daniel Obua',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
@@ -78,7 +78,6 @@ const displayMovements = (movements) => {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
 
 // Calculate balance, incomes, debts and interest
 const calculateBalance = (movements) => {
@@ -106,18 +105,16 @@ const calculateInterest = (movements) => {
 };
 
 // Display balance
-const displayBalance = () => {
-  labelBalance.textContent = `${calculateBalance(account1.movements)}€`;
+const displayBalance = (movements) => {
+  labelBalance.textContent = `${calculateBalance(movements)}€`;
 };
-displayBalance();
 
 // Display income, debts and interest
-const displaySummary = () => {
-  labelSumIn.textContent = `${calculateIncomes(account1.movements)} €`;
-  labelSumOut.textContent = `${calculateDebts(account1.movements)}€`;
-  labelSumInterest.textContent = `${calculateInterest(account1.movements)}€`;
+const displaySummary = (movements) => {
+  labelSumIn.textContent = `${calculateIncomes(movements)} €`;
+  labelSumOut.textContent = `${calculateDebts(movements)}€`;
+  labelSumInterest.textContent = `${calculateInterest(movements)}€`;
 };
-displaySummary();
 
 // Create usernames
 const createUserNames = (accts) => {
