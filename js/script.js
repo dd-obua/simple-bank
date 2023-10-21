@@ -148,4 +148,7 @@ btnLogin.addEventListener('click', (event) => {
   // Display, movements
   displayMovements(currentAccount.movements);
   containerApp.style.opacity = 1;
+
+  // Display balance
+  displayBalance(currentAccount.movements);
 });
