@@ -86,19 +86,21 @@ const calculateBalance = (movements) => {
 };
 
 const calculateIncomes = (movements) => {
-  return movements.filter((mvt) => mvt > 0).reduce((acc, cur) => acc + cur);
+  return movements
+    .filter((mvt) => mvt > 0)
+    .reduce((acc, income) => acc + income);
 };
 
 const calculateDebts = (movements) => {
   return Math.abs(
-    movements.filter((mvt) => mvt < 0).reduce((acc, cur) => acc + cur)
+    movements.filter((mvt) => mvt < 0).reduce((acc, debt) => acc + debt)
   );
 };
 
 const calculateInterest = (movements) => {
   return movements
     .filter((mvt) => mvt > 0)
-    .map((deposit) => (deposit * 12) / 10)
+    .map((deposit) => (deposit * 1.2) / 100)
     .reduce((acc, cur) => acc + cur);
 };
 
