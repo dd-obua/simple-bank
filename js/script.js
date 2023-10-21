@@ -141,4 +141,7 @@ btnLogin.addEventListener('click', (event) => {
   );
 
   if (!currentAccount) return;
+
+  // Display welcome message
+  labelWelcome.textContent = `Welcome ${currentAccount.owner.split(' ')[0]}!`;
 });
