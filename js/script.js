@@ -132,9 +132,9 @@ createUserNames(accounts);
 
 // Update UI
 const updateUI = (acct) => {
-  displayMovements(currentAccount);
-  displayBalance(currentAccount);
-  displaySummary(currentAccount); // income, debts and interest
+  displayMovements(acct);
+  displayBalance(acct);
+  displaySummary(acct); // income, debts and interest
 };
 
 // Create login functionality
@@ -165,7 +165,7 @@ btnLogin.addEventListener('click', (event) => {
   containerApp.style.opacity = 1;
 
   // Update UI
-  updateUI();
+  updateUI(currentAccount);
 });
 
 // Transfer money
@@ -195,6 +195,6 @@ btnTransfer.addEventListener('click', (event) => {
     inputTransferAmount.blur();
 
     // Update UI
-    updateUI();
+    updateUI(currentAccount);
   }
 });
