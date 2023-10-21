@@ -133,18 +133,21 @@ createUserNames(accounts);
 let currentAccount;
 
 btnLogin.addEventListener('click', (event) => {
+  // Prevent form default
   event.preventDefault();
 
+  // Get current user's account
   currentAccount = accounts.find(
     (acct) =>
       acct.username === inputLoginUsername.value &&
       acct.pin === Number(inputLoginPin.value)
   );
 
-  // Clear input fields
+  // Clear login input fields
   inputLoginUsername.value = inputLoginPin.value = '';
   inputLoginPin.blur();
 
+  // Stop execution if no user is found
   if (!currentAccount) return;
 
   // Display welcome message
