@@ -60,10 +60,10 @@ const inputCloseUsername = select('.form__input--user');
 const inputClosePin = select('.form__input--pin');
 
 // Diplay movements
-const displayMovements = (movements) => {
+const displayMovements = (acct) => {
   containerMovements.innerHTML = '';
 
-  movements.forEach((mov, i) => {
+  acct.movements.forEach((mov, i) => {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <li class="movements__row">
@@ -80,41 +80,41 @@ const displayMovements = (movements) => {
 };
 
 // Calculate balance, incomes, debts and interest
-const calculateBalance = (movements) => {
-  return movements.reduce((acc, cur) => acc + cur, 0);
+const calculateBalance = (acct) => {
+  return acct.movements.reduce((acc, cur) => acc + cur, 0);
 };
 
-const calculateIncomes = (movements) => {
-  return movements
+const calculateIncomes = (acct) => {
+  return acct.movements
     .filter((mvt) => mvt > 0)
     .reduce((acc, income) => acc + income, 0);
 };
 
-const calculateDebts = (movements) => {
+const calculateDebts = (acct) => {
   return Math.abs(
-    movements.filter((mvt) => mvt < 0).reduce((acc, debt) => acc + debt, 0)
+    acct.movements.filter((mvt) => mvt < 0).reduce((acc, debt) => acc + debt, 0)
   );
 };
 
-const calculateInterest = (movements) => {
-  return movements
+const calculateInterest = (acct) => {
+  return acct.movements
     .filter((mvt) => mvt > 0)
-    .map((deposit) => (deposit * 1.2) / 100)
+    .map((deposit) => (deposit * acct.interestRate) / 100)
     .filter((interest) => interest >= 1)
     .reduce((acc, cur) => acc + cur, 0)
     .toFixed(2);
 };
 
 // Display balance
-const displayBalance = (movements) => {
-  labelBalance.textContent = `${calculateBalance(movements)}€`;
+const displayBalance = (acct) => {
+  labelBalance.textContent = `${calculateBalance(acct)}€`;
 };
 
 // Display income, debts and interest
-const displaySummary = (movements) => {
-  labelSumIn.textContent = `${calculateIncomes(movements)} €`;
-  labelSumOut.textContent = `${calculateDebts(movements)}€`;
-  labelSumInterest.textContent = `${calculateInterest(movements)}€`;
+const displaySummary = (acct) => {
+  labelSumIn.textContent = `${calculateIncomes(acct)} €`;
+  labelSumOut.textContent = `${calculateDebts(acct)}€`;
+  labelSumInterest.textContent = `${calculateInterest(acct)}€`;
 };
 
 // Create usernames
@@ -151,12 +151,12 @@ btnLogin.addEventListener('click', (event) => {
   labelWelcome.textContent = `Welcome ${currentAccount.owner.split(' ')[0]}!`;
 
   // Display, movements
-  displayMovements(currentAccount.movements);
+  displayMovements(currentAccount);
   containerApp.style.opacity = 1;
 
   // Display balance
-  displayBalance(currentAccount.movements);
+  displayBalance(currentAccount);
 
   // Display summary (income, debts and interest)
-  displaySummary(currentAccount.movements);
+  displaySummary(currentAccount);
 });
