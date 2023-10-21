@@ -128,3 +128,4 @@ const createUserNames = (accts) => {
       .join('');
   });
 };
+createUserNames(accounts);
