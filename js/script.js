@@ -139,4 +139,6 @@ btnLogin.addEventListener('click', (event) => {
       acct.username === inputLoginUsername.value &&
       acct.pin === Number(inputLoginPin.value)
   );
+
+  if (!currentAccount) return;
 });
