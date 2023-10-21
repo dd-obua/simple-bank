@@ -82,10 +82,26 @@ displayMovements(account1.movements);
 
 const calcBalance = (movements) => movements.reduce((acc, cur) => acc + cur);
 
+const calcIncomes = (movements) => {
+  return movements.filter((mvt) => mvt > 0).reduce((acc, cur) => acc + cur);
+};
+
+const calculateDebts = (movements) => {
+  return Math.abs(
+    movements.filter((mvt) => mvt < 0).reduce((acc, cur) => acc + cur)
+  );
+};
+
 const displayBalance = () => {
   labelBalance.textContent = `${calcBalance(account1.movements)} €`;
 };
 displayBalance();
+
+const displaySummary = () => {
+  labelSumIn.textContent = `${calcIncomes(account1.movements)}  €`;
+  labelSumOut.textContent = `${calculateDebts(account1.movements)} €`;
+};
+displaySummary();
 
 const createUserNames = (accts) => {
   accts.forEach((acct) => {
