@@ -71,7 +71,7 @@ const displayMovements = (movements) => {
           ${i + 1} ${type}
         </span>
         <span class="movements__value">
-          ${mov}
+          ${mov}€
         </span>
       </li>
     `;
@@ -93,13 +93,13 @@ const calculateDebts = (movements) => {
 };
 
 const displayBalance = () => {
-  labelBalance.textContent = `${calcBalance(account1.movements)} €`;
+  labelBalance.textContent = `${calcBalance(account1.movements)}€`;
 };
 displayBalance();
 
 const displaySummary = () => {
-  labelSumIn.textContent = `${calcIncomes(account1.movements)}  €`;
-  labelSumOut.textContent = `${calculateDebts(account1.movements)} €`;
+  labelSumIn.textContent = `${calcIncomes(account1.movements)} €`;
+  labelSumOut.textContent = `${calculateDebts(account1.movements)}€`;
 };
 displaySummary();
 
