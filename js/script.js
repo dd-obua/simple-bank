@@ -151,4 +151,7 @@ btnLogin.addEventListener('click', (event) => {
 
   // Display balance
   displayBalance(currentAccount.movements);
+
+  // Display summary (income, debts and interest)
+  displaySummary(currentAccount.movements);
 });
