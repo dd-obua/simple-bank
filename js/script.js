@@ -80,24 +80,36 @@ const displayMovements = (movements) => {
 };
 displayMovements(account1.movements);
 
-const calcBalance = (movements) => movements.reduce((acc, cur) => acc + cur);
+const calculateBalance = (movements) => {
+  return movements.reduce((acc, cur) => acc + cur);
+};
 
-const calcIncomes = (movements) => {
-  movements.filter((mvt) => mvt > 0).reduce((acc, cur) => acc + cur);
+const calculateIncomes = (movements) => {
+  return movements.filter((mvt) => mvt > 0).reduce((acc, cur) => acc + cur);
 };
 
 const calculateDebts = (movements) => {
-  Math.abs(movements.filter((mvt) => mvt < 0).reduce((acc, cur) => acc + cur));
+  return Math.abs(
+    movements.filter((mvt) => mvt < 0).reduce((acc, cur) => acc + cur)
+  );
+};
+
+const calculateInterest = (movements) => {
+  return movements
+    .filter((mvt) => mvt > 0)
+    .map((deposit) => (deposit * 12) / 10)
+    .reduce((acc, cur) => acc + cur);
 };
 
 const displayBalance = () => {
-  labelBalance.textContent = `${calcBalance(account1.movements)}€`;
+  labelBalance.textContent = `${calculateBalance(account1.movements)}€`;
 };
 displayBalance();
 
 const displaySummary = () => {
-  labelSumIn.textContent = `${calcIncomes(account1.movements)} €`;
+  labelSumIn.textContent = `${calculateIncomes(account1.movements)} €`;
   labelSumOut.textContent = `${calculateDebts(account1.movements)}€`;
+  labelSumInterest.textContent = `${calculateInterest(account1.movements)}€`;
 };
 displaySummary();
 
