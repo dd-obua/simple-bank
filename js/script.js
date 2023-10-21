@@ -81,18 +81,18 @@ const displayMovements = (movements) => {
 
 // Calculate balance, incomes, debts and interest
 const calculateBalance = (movements) => {
-  return movements.reduce((acc, cur) => acc + cur);
+  return movements.reduce((acc, cur) => acc + cur, 0);
 };
 
 const calculateIncomes = (movements) => {
   return movements
     .filter((mvt) => mvt > 0)
-    .reduce((acc, income) => acc + income);
+    .reduce((acc, income) => acc + income, 0);
 };
 
 const calculateDebts = (movements) => {
   return Math.abs(
-    movements.filter((mvt) => mvt < 0).reduce((acc, debt) => acc + debt)
+    movements.filter((mvt) => mvt < 0).reduce((acc, debt) => acc + debt, 0)
   );
 };
 
@@ -101,7 +101,7 @@ const calculateInterest = (movements) => {
     .filter((mvt) => mvt > 0)
     .map((deposit) => (deposit * 1.2) / 100)
     .filter((interest) => interest >= 1)
-    .reduce((acc, cur) => acc + cur);
+    .reduce((acc, cur) => acc + cur, 0);
 };
 
 // Display balance
