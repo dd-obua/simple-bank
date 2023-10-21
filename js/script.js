@@ -101,7 +101,8 @@ const calculateInterest = (movements) => {
     .filter((mvt) => mvt > 0)
     .map((deposit) => (deposit * 1.2) / 100)
     .filter((interest) => interest >= 1)
-    .reduce((acc, cur) => acc + cur, 0);
+    .reduce((acc, cur) => acc + cur, 0)
+    .toFixed(2);
 };
 
 // Display balance
