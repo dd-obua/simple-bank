@@ -80,6 +80,7 @@ const displayMovements = (movements) => {
 };
 displayMovements(account1.movements);
 
+// Calculate balance, incomes, debts and interest
 const calculateBalance = (movements) => {
   return movements.reduce((acc, cur) => acc + cur);
 };
@@ -101,11 +102,13 @@ const calculateInterest = (movements) => {
     .reduce((acc, cur) => acc + cur);
 };
 
+// Display balance
 const displayBalance = () => {
   labelBalance.textContent = `${calculateBalance(account1.movements)}€`;
 };
 displayBalance();
 
+// Display income, debts and interest
 const displaySummary = () => {
   labelSumIn.textContent = `${calculateIncomes(account1.movements)} €`;
   labelSumOut.textContent = `${calculateDebts(account1.movements)}€`;
