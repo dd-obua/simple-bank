@@ -81,7 +81,8 @@ const displayMovements = (acct) => {
 
 // Calculate balance, incomes, debts and interest
 const calculateBalance = (acct) => {
-  return acct.movements.reduce((acc, cur) => acc + cur, 0);
+  acct.balance = acct.movements.reduce((acc, cur) => acc + cur, 0);
+  return acct.balance;
 };
 
 const calculateIncomes = (acct) => {
@@ -129,6 +130,9 @@ const createUserNames = (accts) => {
 };
 createUserNames(accounts);
 
+// Update UI
+const updateUI = (acct) => {};
+
 // Create login functionality
 let currentAccount;
 
@@ -153,9 +157,11 @@ btnLogin.addEventListener('click', (event) => {
   // Display welcome message
   labelWelcome.textContent = `Welcome ${currentAccount.owner.split(' ')[0]}!`;
 
+  // Display main page
+  containerApp.style.opacity = 1;
+
   // Display, movements
   displayMovements(currentAccount);
-  containerApp.style.opacity = 1;
 
   // Display balance
   displayBalance(currentAccount);
