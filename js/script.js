@@ -249,9 +249,9 @@ btnClose.addEventListener('click', (event) => {
 });
 
 // Sort movements
-let sorted = false;
+let isSorted = false;
 btnSort.addEventListener('click', (event) => {
   event.preventDefault();
-  displayMovements(currentAccount, !sorted);
-  sorted = !sorted;
+  displayMovements(currentAccount, !isSorted);
+  isSorted = !isSorted;
 });
