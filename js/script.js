@@ -247,3 +247,11 @@ btnClose.addEventListener('click', (event) => {
   inputCloseUsername.value = inputClosePin.value = '';
   inputClosePin.blur();
 });
+
+// Sort movements
+let sorted = false;
+btnSort.addEventListener('click', (event) => {
+  event.preventDefault();
+  displayMovements(currentAccount, !sorted);
+  sorted = !sorted;
+});
