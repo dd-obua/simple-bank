@@ -198,3 +198,30 @@ btnTransfer.addEventListener('click', (event) => {
     updateUI(currentAccount);
   }
 });
+
+// Close account
+btnClose.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const inputUsername = inputCloseUsername.value;
+  const inputPin = Number(inputClosePin.value);
+
+  if (
+    inputUsername === currentAccount.username &&
+    inputPin === currentAccount.pin
+  ) {
+    // Delete account
+    const deleteIndex = accounts.findIndex(
+      (acct) => acct.username === inputUsername && acct.pin === inputPin
+    );
+    accounts.splice(deleteIndex, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = 'Log in to get started';
+  }
+
+  // Clear input fields
+  inputCloseUsername.value = inputClosePin.value = '';
+  inputClosePin.blur();
+});
