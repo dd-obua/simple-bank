@@ -60,10 +60,14 @@ const inputCloseUsername = select('.form__input--user');
 const inputClosePin = select('.form__input--pin');
 
 // Diplay movements
-const displayMovements = (acct) => {
+const displayMovements = (acct, sorted = false) => {
   containerMovements.innerHTML = '';
 
-  acct.movements.forEach((mov, i) => {
+  const transactions = sorted
+    ? acct.movements.slice().sort((a, b) => a - b)
+    : acct.movements;
+
+  transactions.forEach((mov, i) => {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <li class="movements__row">
