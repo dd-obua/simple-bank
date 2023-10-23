@@ -210,6 +210,8 @@ btnLoan.addEventListener('click', (event) => {
   ) {
     currentAccount.movements.push(loanAmount); // Add movement
     updateUI(currentAccount); // Update UI
+
+    // Clear input field
     inputLoanAmount.value = '';
     inputLoanAmount.blur();
   }
