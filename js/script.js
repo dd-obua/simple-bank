@@ -152,7 +152,7 @@ btnLogin.addEventListener('click', (event) => {
   currentAccount = accounts.find(
     (acct) =>
       acct.username === inputLoginUsername.value &&
-      acct.pin === Number(inputLoginPin.value)
+      acct.pin === +inputLoginPin.value
   );
 
   // Clear login input fields
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', (event) => {
 // Request loan
 btnLoan.addEventListener('click', (event) => {
   event.preventDefault();
-  const loanAmount = Number(inputLoanAmount.value);
+  const loanAmount = +inputLoanAmount.value;
 
   if (
     loanAmount > 0 &&
@@ -226,7 +226,7 @@ btnClose.addEventListener('click', (event) => {
   event.preventDefault();
 
   const inputUsername = inputCloseUsername.value;
-  const inputPin = Number(inputClosePin.value);
+  const inputPin = +inputClosePin.value;
 
   if (
     inputUsername === currentAccount.username &&
