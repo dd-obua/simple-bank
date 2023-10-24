@@ -75,7 +75,7 @@ const displayMovements = (acct, sorted = false) => {
           ${i + 1} ${type}
         </span>
         <span class="movements__value">
-          ${mov}€
+          ${mov.toFixed(2)}€
         </span>
       </li>
     `;
@@ -106,20 +106,19 @@ const calculateInterest = (acct) => {
     .filter((mvt) => mvt > 0)
     .map((deposit) => (deposit * acct.interestRate) / 100)
     .filter((interest) => interest >= 1)
-    .reduce((acc, cur) => acc + cur, 0)
-    .toFixed(2);
+    .reduce((acc, cur) => acc + cur, 0);
 };
 
 // Display balance
 const displayBalance = (acct) => {
-  labelBalance.textContent = `${calculateBalance(acct)}€`;
+  labelBalance.textContent = `${calculateBalance(acct).toFixed(2)}€`;
 };
 
 // Display income, debts and interest
 const displaySummary = (acct) => {
-  labelSumIn.textContent = `${calculateIncomes(acct)} €`;
-  labelSumOut.textContent = `${calculateDebts(acct)}€`;
-  labelSumInterest.textContent = `${calculateInterest(acct)}€`;
+  labelSumIn.textContent = `${calculateIncomes(acct).toFixed(2)}€`;
+  labelSumOut.textContent = `${calculateDebts(acct).toFixed(2)}€`;
+  labelSumInterest.textContent = `${calculateInterest(acct).toFixed(2)}€`;
 };
 
 // Create usernames
@@ -206,7 +205,7 @@ btnTransfer.addEventListener('click', (event) => {
 // Request loan
 btnLoan.addEventListener('click', (event) => {
   event.preventDefault();
-  const loanAmount = +inputLoanAmount.value;
+  const loanAmount = Math.floor(inputLoanAmount.value);
 
   if (
     loanAmount > 0 &&
