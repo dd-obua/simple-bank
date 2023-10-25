@@ -6,7 +6,16 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
-  movementDates: ['2019-11-18T21:31:17.178Z', '2019-12-23T07:42:02.383Z'],
+  movementDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2023-10-23T17:01:17.194Z',
+    '2023-10-24T23:36:17.929Z',
+    '2023-10-25T10:51:36.790Z',
+  ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
 };
@@ -16,7 +25,16 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
-  movementDates: ['2020-01-28T09:15:04.904Z', '2020-04-01T10:17:24.185Z'],
+  movementDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2023-10-18T14:43:26.374Z',
+    '2023-10-20T18:49:59.371Z',
+    '2023-10-24T12:01:20.894Z',
+  ],
   currency: 'USD',
   locale: 'en-US',
 };
@@ -26,7 +44,16 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
-  movementDates: ['2020-05-08T14:11:59.604Z', '2020-05-27T17:01:17.194Z'],
+  movementDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-05-27T17:01:17.194Z',
+    '2020-07-11T23:36:17.929Z',
+    '2023-10-23T10:51:36.790Z',
+  ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
 };
@@ -36,7 +63,16 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
-  movementDates: ['2020-07-11T23:36:17.929Z', '2020-07-12T10:51:36.790Z'],
+  movementDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2023-10-23T17:01:17.194Z',
+    '2023-10-24T23:36:17.929Z',
+    '2023-10-25T10:51:36.790Z',
+  ],
   currency: 'USD',
   locale: 'en-US',
 };
@@ -123,6 +159,22 @@ const showDateTime = () => {
   labelDate.textContent = `${date}/${month}/${year}, ${hour}:${mins} ${period}`;
 };
 
+const calculateDaysPassed = (date1, date2) => {
+  return Math.round(Math.abs(date1 - date2) / 1000 / 60 / 60 / 24);
+};
+
+const formatMovementDates = (date) => {
+  const daysPassed = calculateDaysPassed(new Date(), date);
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed.toFixed(0)} days ago`;
+
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 // Diplay movements
 const displayMovements = (acct, sorted = false) => {
   containerMovements.innerHTML = '';
@@ -134,11 +186,8 @@ const displayMovements = (acct, sorted = false) => {
   transactions.forEach((mov, i) => {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
-    const time = new Date(acct.movementDates[i]);
-    const date = `${time.getDate()}`.padStart(2, 0);
-    const month = `${time.getMonth() + 1}`.padStart(2, 0);
-    const year = time.getFullYear();
-    const dateDisplay = `${date}/${month}/${year}`;
+    const date = new Date(acct.movementDates[i]);
+    const dateValue = formatMovementDates(date);
 
     const html = `
       <li class="movements__row">
@@ -146,7 +195,7 @@ const displayMovements = (acct, sorted = false) => {
           ${i + 1} ${type}
         </span>
         <span class="movements__date">
-          ${dateDisplay}
+          ${dateValue}
         </span>
         <span class="movements__value">
           ${mov.toFixed(2)}€
