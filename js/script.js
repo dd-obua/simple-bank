@@ -178,6 +178,13 @@ const formatMovementDates = (date, locale) => {
   return Intl.DateTimeFormat(locale).format(date);
 };
 
+const formatCurrency = (value, locale, currency) => {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
 // Diplay movements
 const displayMovements = (acct, sorted = false) => {
   containerMovements.innerHTML = '';
@@ -191,11 +198,7 @@ const displayMovements = (acct, sorted = false) => {
 
     const date = new Date(acct.movementDates[i]);
     const dateValue = formatMovementDates(date, acct.locale);
-
-    const formattedMov = new Intl.NumberFormat(acct.locale, {
-      style: 'currency',
-      currency: acct.currency,
-    }).format(mov);
+    const formattedMov = formatCurrency(mov, acct.locale, acct.currency);
 
     const html = `
       <li class="movements__row">
@@ -242,28 +245,27 @@ const calculateInterest = (acct) => {
 
 // Display balance
 const displayBalance = (acct) => {
-  labelBalance.textContent = `${Intl.NumberFormat(acct.locale, {
-    style: 'currency',
-    currency: acct.currency,
-  }).format(calculateBalance(acct))}`;
+  const balance = calculateBalance(acct);
+  labelBalance.textContent = formatCurrency(
+    balance,
+    acct.locale,
+    acct.currency
+  );
 };
 
 // Display income, debts and interest
 const displaySummary = (acct) => {
-  labelSumIn.textContent = `${Intl.NumberFormat(acct.locale, {
-    style: 'currency',
-    currency: acct.currency,
-  }).format(calculateIncomes(acct))}`;
+  const incomes = calculateIncomes(acct);
+  const debts = calculateDebts(acct);
+  const interest = calculateInterest(acct);
 
-  labelSumOut.textContent = `${Intl.NumberFormat(acct.locale, {
-    style: 'currency',
-    currency: acct.currency,
-  }).format(calculateDebts(acct))}`;
-
-  labelSumInterest.textContent = `${Intl.NumberFormat(acct.locale, {
-    style: 'currency',
-    currency: acct.currency,
-  }).format(calculateInterest(acct))}`;
+  labelSumIn.textContent = formatCurrency(incomes, acct.locale, acct.currency);
+  labelSumOut.textContent = formatCurrency(debts, acct.locale, acct.currency);
+  labelSumInterest.textContent = formatCurrency(
+    debts,
+    acct.locale,
+    acct.currency
+  );
 };
 
 // Create usernames
