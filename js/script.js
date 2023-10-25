@@ -55,7 +55,7 @@ const account3 = {
     '2023-10-23T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: navigator.language,
+  locale: 'en-GB',
 };
 
 const account4 = {
