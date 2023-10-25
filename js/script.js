@@ -17,7 +17,7 @@ const account1 = {
     '2023-10-25T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: navigator.language,
+  locale: 'pt-PT', // de-DE
 };
 
 const account2 = {
@@ -36,7 +36,7 @@ const account2 = {
     '2023-10-24T12:01:20.894Z',
   ],
   currency: 'USD',
-  locale: navigator.language,
+  locale: 'en-US',
 };
 
 const account3 = {
@@ -94,7 +94,7 @@ const account5 = {
     '2020-07-12T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: navigator.language,
+  locale: 'pt-PT', // de-DE
 };
 
 const account6 = {
@@ -115,6 +115,7 @@ const account6 = {
   ],
   currency: 'USD',
   locale: navigator.language,
+  // locale: 'en-US',
 };
 
 const accounts = [account1, account2, account3, account4, account5, account6];
