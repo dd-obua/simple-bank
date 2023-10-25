@@ -364,16 +364,16 @@ btnLoan.addEventListener('click', (event) => {
   if (
     loanAmount > 0 &&
     currentAccount.movements.some((mvt) => mvt >= 0.1 * loanAmount)
-  ) {
-    currentAccount.movements.push(loanAmount); // Add movement
-    currentAccount.movementDates.push(new Date().toISOString());
+  )
+    setTimeout(() => {
+      currentAccount.movements.push(loanAmount); // Add movement
+      currentAccount.movementDates.push(new Date().toISOString());
+      updateUI(currentAccount); // Update UI
 
-    updateUI(currentAccount); // Update UI
-
-    // Clear input field
-    inputLoanAmount.value = '';
-    inputLoanAmount.blur();
-  }
+      // Clear input field
+      inputLoanAmount.value = '';
+      inputLoanAmount.blur();
+    }, 2500);
 });
 
 // Close account
