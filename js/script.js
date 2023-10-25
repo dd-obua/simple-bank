@@ -191,6 +191,11 @@ const displayMovements = (acct, sorted = false) => {
     const date = new Date(acct.movementDates[i]);
     const dateValue = formatMovementDates(date, acct.locale);
 
+    const formattedMov = new Intl.NumberFormat(acct.locale, {
+      style: 'currency',
+      currency: acct.currency,
+    }).format(mov);
+
     const html = `
       <li class="movements__row">
         <span class="movements__type movements__type--${type}">
@@ -200,7 +205,7 @@ const displayMovements = (acct, sorted = false) => {
           ${dateValue}
         </span>
         <span class="movements__value">
-          ${mov.toFixed(2)}€
+          ${formattedMov}
         </span>
       </li>
     `;
@@ -236,14 +241,28 @@ const calculateInterest = (acct) => {
 
 // Display balance
 const displayBalance = (acct) => {
-  labelBalance.textContent = `${calculateBalance(acct).toFixed(2)}€`;
+  labelBalance.textContent = `${Intl.NumberFormat(acct.locale, {
+    style: 'currency',
+    currency: acct.currency,
+  }).format(calculateBalance(acct))}`;
 };
 
 // Display income, debts and interest
 const displaySummary = (acct) => {
-  labelSumIn.textContent = `${calculateIncomes(acct).toFixed(2)}€`;
-  labelSumOut.textContent = `${calculateDebts(acct).toFixed(2)}€`;
-  labelSumInterest.textContent = `${calculateInterest(acct).toFixed(2)}€`;
+  labelSumIn.textContent = `${Intl.NumberFormat(acct.locale, {
+    style: 'currency',
+    currency: acct.currency,
+  }).format(calculateIncomes(acct))}`;
+
+  labelSumOut.textContent = `${Intl.NumberFormat(acct.locale, {
+    style: 'currency',
+    currency: acct.currency,
+  }).format(calculateDebts(acct))}`;
+
+  labelSumInterest.textContent = `${Intl.NumberFormat(acct.locale, {
+    style: 'currency',
+    currency: acct.currency,
+  }).format(calculateInterest(acct))}`;
 };
 
 // Create usernames
