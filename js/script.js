@@ -17,7 +17,7 @@ const account1 = {
     '2023-10-25T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: 'pt-PT', // de-DE
+  locale: navigator.language,
 };
 
 const account2 = {
@@ -36,7 +36,7 @@ const account2 = {
     '2023-10-24T12:01:20.894Z',
   ],
   currency: 'USD',
-  locale: 'en-US',
+  locale: navigator.language,
 };
 
 const account3 = {
@@ -55,7 +55,7 @@ const account3 = {
     '2023-10-23T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: 'pt-PT', // de-DE
+  locale: navigator.language,
 };
 
 const account4 = {
@@ -74,7 +74,7 @@ const account4 = {
     '2023-10-25T10:51:36.790Z',
   ],
   currency: 'USD',
-  locale: 'en-US',
+  locale: navigator.language,
 };
 
 const account5 = {
@@ -94,7 +94,7 @@ const account5 = {
     '2020-07-12T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: 'pt-PT', // de-DE
+  locale: navigator.language,
 };
 
 const account6 = {
@@ -114,7 +114,7 @@ const account6 = {
     '2020-07-26T12:01:20.894Z',
   ],
   currency: 'USD',
-  locale: 'en-US',
+  locale: navigator.language,
 };
 
 const accounts = [account1, account2, account3, account4, account5, account6];
@@ -148,31 +148,33 @@ const inputCloseUsername = select('.form__input--user');
 const inputClosePin = select('.form__input--pin');
 
 // Create current date and time
-const showDateTime = () => {
+const showDateTime = (acct) => {
   const now = new Date();
-  const date = `${now.getDate()}`.padStart(2, 0);
-  const month = `${now.getMonth() + 1}`.padStart(2, 0);
-  const year = now.getFullYear();
-  const hour = `${now.getHours()}`.padStart(2, 0);
-  const mins = `${now.getMinutes()}`.padStart(2, 0);
-  const period = hour >= 12 ? 'pm' : 'am';
-  labelDate.textContent = `${date}/${month}/${year}, ${hour}:${mins} ${period}`;
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    weekday: 'long',
+  };
+
+  labelDate.textContent = new Intl.DateTimeFormat(acct.locale, options).format(
+    now
+  );
 };
 
 const calculateDaysPassed = (date1, date2) => {
   return Math.round(Math.abs(date1 - date2) / 1000 / 60 / 60 / 24);
 };
 
-const formatMovementDates = (date) => {
+const formatMovementDates = (date, locale) => {
   const daysPassed = calculateDaysPassed(new Date(), date);
   if (daysPassed === 0) return 'Today';
   if (daysPassed === 1) return 'Yesterday';
   if (daysPassed <= 7) return `${daysPassed.toFixed(0)} days ago`;
 
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  return Intl.DateTimeFormat(locale).format(date);
 };
 
 // Diplay movements
@@ -187,7 +189,7 @@ const displayMovements = (acct, sorted = false) => {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const date = new Date(acct.movementDates[i]);
-    const dateValue = formatMovementDates(date);
+    const dateValue = formatMovementDates(date, acct.locale);
 
     const html = `
       <li class="movements__row">
@@ -291,7 +293,7 @@ btnLogin.addEventListener('click', (event) => {
   containerApp.style.opacity = 1;
 
   // Show current date and time
-  showDateTime();
+  showDateTime(currentAccount);
 
   // Update UI
   updateUI(currentAccount);
