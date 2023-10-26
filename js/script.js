@@ -337,7 +337,7 @@ btnLogin.addEventListener('click', (event) => {
   showDateTime(currentAccount); // Show current date and time
 
   // Start or restart logout timer
-  if (timer) clearInterval(timer);
+  timer && clearInterval(timer);
   timer = startLogoutTimer();
 
   updateUI(currentAccount); // Update UI
