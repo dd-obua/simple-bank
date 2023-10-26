@@ -287,11 +287,33 @@ const updateUI = (acct) => {
   displaySummary(acct); // income, debts and interest
 };
 
+// Logout
+const startLogoutTimer = () => {
+  let time = 120;
+
+  const tick = () => {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${sec}`;
+
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Login to get started';
+      containerApp.style.opacity = 0;
+    }
+
+    time--;
+  };
+
+  tick();
+  timer = setInterval(tick, 1000);
+  return timer;
+};
+
 // Create login functionality
-let currentAccount;
+let currentAccount, timer;
 
 btnLogin.addEventListener('click', (event) => {
-  // Prevent form default
   event.preventDefault();
 
   // Get current user's account
@@ -311,14 +333,14 @@ btnLogin.addEventListener('click', (event) => {
   // Display welcome message
   labelWelcome.textContent = `Welcome ${currentAccount.owner.split(' ')[0]}!`;
 
-  // Display main page
-  containerApp.style.opacity = 1;
+  containerApp.style.opacity = 1; // Display main page
+  showDateTime(currentAccount); // Show current date and time
 
-  // Show current date and time
-  showDateTime(currentAccount);
+  // Start or restart logout timer
+  if (timer) clearInterval(timer);
+  timer = startLogoutTimer();
 
-  // Update UI
-  updateUI(currentAccount);
+  updateUI(currentAccount); // Update UI
 });
 
 // Transfer money
@@ -351,6 +373,10 @@ btnTransfer.addEventListener('click', (event) => {
     currentAccount.movementDates.push(new Date().toISOString());
     reciepientAccount.movementDates.push(new Date().toISOString());
 
+    // Reset logout timer
+    clearInterval(timer);
+    timer = startLogoutTimer(timer);
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -368,6 +394,11 @@ btnLoan.addEventListener('click', (event) => {
     setTimeout(() => {
       currentAccount.movements.push(loanAmount); // Add movement
       currentAccount.movementDates.push(new Date().toISOString());
+
+      // Reset logout timer
+      clearInterval(timer);
+      timer = startLogoutTimer(timer);
+
       updateUI(currentAccount); // Update UI
 
       // Clear input field
